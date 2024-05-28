@@ -2146,3 +2146,13 @@ Contributions are welcome! If you'd like to enhance the CSL StockManagement Proj
 3. Commit your changes: `git commit -m "Add my feature"`.
 4. Push to the branch: `git push origin feature/my-feature`.
 5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+---
+
+Feel free to customize this template according to your project's specifics. Add any additional sections (e.g., deployment instructions, testing guidelines) that are relevant to your project. Good luck with the CSL StockManagement Project! 🚀
+
+Remember to replace placeholders (e.g., your-username, csl-stockmanagement, LICENSE) with actual values relevant to your project. If you have any further questions or need additional assistance, feel free to ask! 😊
