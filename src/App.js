@@ -237,3 +237,100 @@ const myData = [
   { x: 3, y: 15, size: 12 },
   { x: 2.5, y: 7, size: 4 },
 ];
+
+// Rest of the code...
+
+const DatasetDropdown = styled.select`
+  font-size: 16px;
+  padding: 8px;
+  margin-right: 16px;
+`;
+
+const DatasetOption = styled.option``;
+
+class App extends Component {
+  state = {
+    value: false,
+    selectedDataset: 'parsedData', // Default dataset
+  };
+
+  handleDatasetChange = event => {
+    this.setState({ selectedDataset: event.target.value });
+  };
+
+  render() {
+    const { selectedDataset } = this.state;
+    const dataset = selectedDataset === 'parsedData' ? parsedData : myData;
+
+    return (
+      <AppContainer>
+        <Header>
+          <MenuOptionContainer active>
+            <MenuOption active>Scatterplot</MenuOption>
+          </MenuOptionContainer>
+          <MenuOptionContainer>
+            <MenuOption>Histogram</MenuOption>
+          </MenuOptionContainer>
+          <MenuOptionContainer>
+            <MenuOption>Line Chart</MenuOption>
+          </MenuOptionContainer>
+        </Header>
+        <ContentContainer>
+          <ChartTitleContainer>
+            <ChartTitle>Cycle Time Report</ChartTitle>
+          </ChartTitleContainer>
+          <ChartSummariesContainer>
+            {/* Chart summaries */}
+          </ChartSummariesContainer>
+          <ChartContainer>
+            <FlexibleXYPlot
+              xType={'time'}
+              onMouseLeave={() => this.setState({ value: false })}
+            >
+              <GradientDefs>
+                {/* Gradient definitions */}
+              </GradientDefs>
+
+              <HorizontalGridLines />
+
+              <MarkSeries
+                animation={true}
+                style={{
+                  strokeWidth: 0.5,
+                  opacity: 1,
+                  zIndex: 2,
+                }}
+                color={'url(#customGradient)'}
+                onNearestXY={value =>
+                  console.log(value) || this.setState({ value })}
+                data={dataset} // Use selected dataset
+              />
+              {this.state.value ? (
+                <Hint
+                  value={{
+                    ...this.state.value,
+                    x: moment(this.state.value.x).format(),
+                  }}
+                />
+              ) : null}
+              <XAxis title="Dates" />
+              <YAxis title="Days" />
+            </FlexibleXYPlot>
+          </ChartContainer>
+          <OptionsToolbar>
+            <DatasetDropdown
+              value={selectedDataset}
+              onChange={this.handleDatasetChange}
+            >
+              <DatasetOption value="parsedData">Parsed Data</DatasetOption>
+              <DatasetOption value="myData">My Data</DatasetOption>
+            </DatasetDropdown>
+            {/* Toolbar options */}
+          </OptionsToolbar>
+        </ContentContainer>
+      </AppContainer>
+    );
+  }
+}
+
+export default App;
